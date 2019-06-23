@@ -17,21 +17,21 @@ import compose from './compose'
  * @returns {Function} A store enhancer applying the middleware.
  */
 export default function applyMiddleware(...middlewares) {
-  return createStore => (...args) => {
+  return createStore => (...args) => {  // args 为 (reducer, initialState)
     const store = createStore(...args)
     let dispatch = () => {
       throw new Error(
         'Dispatching while constructing your middleware is not allowed. ' +
-          'Other middleware would not be applied to this dispatch.'
+        'Other middleware would not be applied to this dispatch.'
       )
     }
 
-    const middlewareAPI = {
+    const middlewareAPI = { // 给一个 middleware 的 store
       getState: store.getState,
-      dispatch: (...args) => dispatch(...args)
+      dispatch: (...args) => dispatch(...args) // 这里的用意是？为什么不直接用 store.dispatch
     }
-    const chain = middlewares.map(middleware => middleware(middlewareAPI))
-    dispatch = compose(...chain)(store.dispatch)
+    const chain = middlewares.map(middleware => middleware(middlewareAPI)) // 匿名参数为 next 的函数
+    dispatch = compose(...chain)(store.dispatch) // 经过 compose 函数后返回的结果，是经过 middlewares 包装后的 dispatch 
 
     return {
       ...store,

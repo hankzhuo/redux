@@ -20,3 +20,7 @@ export default function compose(...funcs) {
 
   return funcs.reduce((a, b) => (...args) => a(b(...args)))
 }
+
+// 第一步：reduce 函数执行，返回 result1 = (...args) => a(b(...args))
+// 第二步：result1(store.dispatch) ==> (dispatch) => a(b(dispatch))，a、b为 middleware 参数为 next 的函数
+// a(b(dispatch)) 柯里化，b(dispatch) 返回结果作为函数 a 的参数，函数 a 执行返回的结果

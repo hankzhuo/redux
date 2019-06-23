@@ -125,7 +125,7 @@ export default function combineReducers(reducers) {
     }
 
     if (typeof reducers[key] === 'function') {
-      finalReducers[key] = reducers[key]
+      finalReducers[key] = reducers[key]  // reducer 一定是函数
     }
   }
   const finalReducerKeys = Object.keys(finalReducers)
@@ -139,12 +139,12 @@ export default function combineReducers(reducers) {
 
   let shapeAssertionError
   try {
-    assertReducerShape(finalReducers)
+    assertReducerShape(finalReducers) // 执行一次 reducer，初始状态的 state 不能为 undefined 和未知的 action
   } catch (e) {
     shapeAssertionError = e
   }
 
-  return function combination(state = {}, action) {
+  return function combination(state = {}, action) {  //  这里用处是？
     if (shapeAssertionError) {
       throw shapeAssertionError
     }
@@ -175,6 +175,6 @@ export default function combineReducers(reducers) {
       nextState[key] = nextStateForKey
       hasChanged = hasChanged || nextStateForKey !== previousStateForKey
     }
-    return hasChanged ? nextState : state
+    return hasChanged ? nextState : state  // 判断 state 是否有变化，如果有则返回新的 state
   }
 }
