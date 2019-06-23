@@ -144,7 +144,7 @@ export default function combineReducers(reducers) {
     shapeAssertionError = e
   }
 
-  return function combination(state = {}, action) {  //  这里用处是？
+  return function combination(state = {}, action) {  // 返回一个新的 reducer 函数
     if (shapeAssertionError) {
       throw shapeAssertionError
     }
