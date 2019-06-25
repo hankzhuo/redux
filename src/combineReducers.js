@@ -139,7 +139,7 @@ export default function combineReducers(reducers) {
 
   let shapeAssertionError
   try {
-    assertReducerShape(finalReducers) // 执行一次 reducer，初始状态的 state 不能为 undefined 和未知的 action
+    assertReducerShape(finalReducers)
   } catch (e) {
     shapeAssertionError = e
   }
@@ -163,7 +163,7 @@ export default function combineReducers(reducers) {
 
     let hasChanged = false
     const nextState = {}
-    for (let i = 0; i < finalReducerKeys.length; i++) {
+    for (let i = 0; i < finalReducerKeys.length; i++) { // 每次执行一次 dipatch(action) reducer 都会执行
       const key = finalReducerKeys[i]
       const reducer = finalReducers[key]
       const previousStateForKey = state[key]

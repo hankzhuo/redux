@@ -40,7 +40,7 @@ export default function createStore(reducer, preloadedState, enhancer) {
     )
   }
 
-  if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') { // 如果没有传第三个参数，第二个参数为函数， 
+  if (typeof preloadedState === 'function' && typeof enhancer === 'undefined') { // 如果没有传第三个参数，第二个参数为函数 
     enhancer = preloadedState
     preloadedState = undefined
   }
